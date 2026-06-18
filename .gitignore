@@ -1,0 +1,12 @@
+# dependencies & builds (web/ has its own .gitignore too)
+node_modules/
+.next/
+out/
+
+# env
+.env
+.env*.local
+
+# misc
+.DS_Store
+*.log

@@ -1,0 +1,200 @@
+{
+  "common": {
+    "siteName": "KMP-UNHAS",
+    "nav": {
+      "home": "Beranda",
+      "about": "Tentang",
+      "aboutMars": "Mars KMP UNHAS",
+      "aboutStructure": "Struktur Kepengurusan",
+      "aboutDepartments": "Departemen",
+      "aboutLogo": "Logo Resmi KMP UNHAS",
+      "aboutAdvisory": "Dewan Pembina Organisasi",
+      "aboutCouncil": "Dewan Pertimbangan Organisasi",
+      "aboutLeadership": "Pimpinan Organisasi",
+      "aboutVisionMission": "Visi dan Misi",
+      "aboutHistory": "Sejarah",
+      "news": "Berita",
+      "gallery": "Galeri",
+      "events": "Agenda",
+      "contact": "Kontak",
+      "register": "Daftar Anggota",
+      "login": "Login",
+      "menu": "Menu navigasi"
+    },
+    "footer": {
+      "tagline": "Wadah silaturahmi dan pengembangan diri mahasiswa Pinrang di Universitas Hasanuddin.",
+      "explore": "Jelajahi",
+      "contactUs": "Hubungi Kami",
+      "privacy": "Kebijakan Privasi",
+      "rights": "Hak cipta dilindungi."
+    },
+    "actions": {
+      "readMore": "Baca selengkapnya",
+      "viewAll": "Lihat semua",
+      "back": "Kembali",
+      "submit": "Kirim",
+      "submitting": "Mengirim...",
+      "search": "Cari",
+      "share": "Bagikan",
+      "copyLink": "Salin link",
+      "linkCopied": "Link disalin!"
+    },
+    "theme": { "toggle": "Ganti tema", "light": "Terang", "dark": "Gelap", "system": "Sistem" },
+    "locale": { "label": "Bahasa", "id": "Indonesia", "en": "English" },
+    "byAuthor": "oleh {name}",
+    "defaultAuthor": "Pengurus KMP-UNHAS",
+    "emptyState": "Belum ada data untuk ditampilkan.",
+    "dbUnconfigured": "Database belum dikonfigurasi. Lengkapi variabel lingkungan Supabase terlebih dahulu."
+  },
+  "home": {
+    "metaDescription": "Website resmi KMP-UNHAS (Kerukunan Mahasiswa Pinrang Universitas Hasanuddin). Informasi kegiatan, berita, dan pendaftaran anggota.",
+    "heroCtaPrimary": "Daftar Anggota",
+    "heroCtaSecondary": "Tentang Kami",
+    "stats": { "title": "KMP-UNHAS dalam Angka", "founded": "Tahun Berdiri", "members": "Anggota Aktif", "departments": "Departemen", "programs": "Program Kerja" },
+    "chairman": { "title": "Ketua Umum", "period": "Periode {period}" },
+    "latestNews": { "title": "Berita Terbaru", "subtitle": "Kabar dan informasi terkini dari KMP-UNHAS" },
+    "upcomingEvents": { "title": "Agenda Mendatang", "subtitle": "Kegiatan yang akan datang" },
+    "galleryPreview": { "title": "Galeri Kegiatan", "subtitle": "Dokumentasi momen kebersamaan kami" },
+    "registerCta": {
+      "title": "Mahasiswa Baru Asal Pinrang?",
+      "description": "Bergabunglah bersama keluarga besar KMP-UNHAS. Temukan teman seperjuangan, kembangkan dirimu, dan mengabdi untuk kampung halaman.",
+      "button": "Daftar Sekarang"
+    }
+  },
+  "about": {
+    "historyTitle": "Sejarah",
+    "historySubtitle": "Perjalanan Kerukunan Mahasiswa Pinrang Universitas Hasanuddin",
+    "visionMissionTitle": "Visi dan Misi",
+    "visionMissionSubtitle": "Arah, tujuan, dan usaha perjuangan organisasi",
+    "vision": "Visi",
+    "mission": "Misi",
+    "purpose": "Tujuan",
+    "efforts": "Usaha",
+    "goalsTitle": "Tujuan dan Usaha",
+    "logoTitle": "Logo Resmi KMP UNHAS",
+    "logoSubtitle": "Makna dan filosofi logo organisasi",
+    "logoPhilosophy": "Filosofi Logo",
+    "downloadLogo": "Unduh Logo",
+    "logoCreator": "Pembuat Logo",
+    "marsTitle": "Mars KMP UNHAS",
+    "marsSubtitle": "Lagu kebanggaan Kerukunan Mahasiswa Pinrang"
+  },
+  "structure": {
+    "leadershipTitle": "Pimpinan Organisasi",
+    "leadershipSubtitle": "Pengurus inti KMP-UNHAS periode {period}",
+    "advisoryTitle": "Dewan Pembina Organisasi",
+    "advisorySubtitle": "Dewan pembina Kerukunan Mahasiswa Pinrang",
+    "councilTitle": "Dewan Pertimbangan Organisasi",
+    "councilSubtitle": "Dewan pertimbangan organisasi KMP-UNHAS",
+    "structureTitle": "Struktur Kepengurusan",
+    "structureSubtitle": "Bagan kepengurusan KMP-UNHAS periode {period}",
+    "departmentsTitle": "Departemen",
+    "departmentsSubtitle": "Departemen yang menggerakkan roda organisasi",
+    "departments": "Departemen",
+    "batch": "Angkatan {batch}",
+    "members": "Pengurus Departemen",
+    "programs": "Program Kerja",
+    "viewDetail": "Lihat detail"
+  },
+  "news": {
+    "title": "Berita",
+    "subtitle": "Kabar, kegiatan, dan pengumuman resmi KMP-UNHAS",
+    "searchPlaceholder": "Cari berita...",
+    "allCategories": "Semua",
+    "notFound": "Tidak ada berita yang cocok dengan pencarianmu.",
+    "relatedNews": "Berita Terkait",
+    "shareTitle": "Bagikan berita ini",
+    "prevPage": "Sebelumnya",
+    "nextPage": "Berikutnya",
+    "pageOf": "Halaman {page} dari {total}"
+  },
+  "gallery": {
+    "title": "Galeri",
+    "subtitle": "Dokumentasi kegiatan dan momen kebersamaan KMP-UNHAS",
+    "photoCount": "{count} foto",
+    "viewAlbum": "Buka album"
+  },
+  "events": {
+    "title": "Agenda",
+    "subtitle": "Jadwal kegiatan dan program kerja KMP-UNHAS",
+    "upcoming": "Mendatang",
+    "done": "Selesai",
+    "all": "Semua",
+    "proker": "Proker",
+    "nonProker": "Non-Proker",
+    "organizer": "Penyelenggara: {name}",
+    "noEvents": "Belum ada agenda pada kategori ini."
+  },
+  "registration": {
+    "title": "Pendaftaran Anggota",
+    "subtitle": "Formulir pendaftaran anggota baru KMP-UNHAS bagi mahasiswa asal Kabupaten Pinrang di Universitas Hasanuddin",
+    "closed": "Pendaftaran anggota baru saat ini ditutup. Pantau media sosial kami untuk informasi pembukaan berikutnya.",
+    "fields": {
+      "fullName": "Nama Lengkap",
+      "fullNamePlaceholder": "Nama sesuai KTM",
+      "nim": "NIM",
+      "nimPlaceholder": "mis. A012345678",
+      "faculty": "Fakultas",
+      "facultyPlaceholder": "mis. Fakultas Teknik",
+      "major": "Program Studi",
+      "majorPlaceholder": "mis. Teknik Informatika",
+      "batch": "Angkatan",
+      "batchPlaceholder": "mis. 2026",
+      "origin": "Asal Kecamatan/Sekolah di Pinrang",
+      "originPlaceholder": "mis. Kec. Watang Sawitto / SMAN 1 Pinrang",
+      "email": "Email",
+      "emailPlaceholder": "nama@gmail.com",
+      "whatsapp": "No. WhatsApp",
+      "whatsappPlaceholder": "mis. 08xxxxxxxxxx",
+      "reason": "Alasan Bergabung",
+      "reasonPlaceholder": "Ceritakan singkat motivasimu bergabung dengan KMP-UNHAS",
+      "consent": "Saya menyetujui pengolahan data pribadi sesuai <link>Kebijakan Privasi</link>"
+    },
+    "success": {
+      "title": "Pendaftaran Terkirim!",
+      "description": "Terima kasih telah mendaftar. Pengurus akan menghubungimu melalui WhatsApp untuk proses selanjutnya.",
+      "backHome": "Kembali ke Beranda"
+    },
+    "error": "Pendaftaran gagal terkirim. Silakan coba lagi.",
+    "validation": {
+      "required": "Wajib diisi",
+      "email": "Format email tidak valid",
+      "phone": "Format nomor tidak valid (contoh: 08xxxxxxxxxx)",
+      "nim": "Format NIM tidak valid",
+      "consent": "Kamu harus menyetujui kebijakan privasi",
+      "min": "Terlalu pendek",
+      "max": "Terlalu panjang"
+    }
+  },
+  "contact": {
+    "title": "Kontak",
+    "subtitle": "Hubungi pengurus KMP-UNHAS",
+    "address": "Alamat Sekretariat",
+    "email": "Email",
+    "phone": "Telepon / WhatsApp",
+    "socials": "Media Sosial",
+    "formTitle": "Kirim Pesan",
+    "fields": {
+      "name": "Nama",
+      "email": "Email",
+      "subject": "Subjek",
+      "message": "Pesan",
+      "messagePlaceholder": "Tulis pesanmu di sini..."
+    },
+    "success": "Pesan terkirim! Pengurus akan segera merespons.",
+    "error": "Pesan gagal terkirim. Silakan coba lagi.",
+    "mapTitle": "Lokasi Sekretariat"
+  },
+  "privacy": { "title": "Kebijakan Privasi" },
+  "login": {
+    "title": "Login Pengurus",
+    "description": "Halaman login dashboard untuk Super Admin, Admin, dan Panitia.",
+    "comingSoon": "Modul autentikasi & dashboard sedang dibangun (Fase 3). Nantikan segera!",
+    "backHome": "Kembali ke Beranda"
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang kamu cari tidak ada atau sudah dipindahkan.",
+    "backHome": "Kembali ke Beranda"
+  }
+}

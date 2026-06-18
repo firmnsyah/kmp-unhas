@@ -1,0 +1,200 @@
+{
+  "common": {
+    "siteName": "KMP-UNHAS",
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "aboutMars": "KMP UNHAS Anthem",
+      "aboutStructure": "Management Structure",
+      "aboutDepartments": "Departments",
+      "aboutLogo": "Official Logo",
+      "aboutAdvisory": "Advisory Board",
+      "aboutCouncil": "Consideration Council",
+      "aboutLeadership": "Organization Leadership",
+      "aboutVisionMission": "Vision & Mission",
+      "aboutHistory": "History",
+      "news": "News",
+      "gallery": "Gallery",
+      "events": "Events",
+      "contact": "Contact",
+      "register": "Join Us",
+      "login": "Login",
+      "menu": "Navigation menu"
+    },
+    "footer": {
+      "tagline": "A home for connection and self-development for Pinrang students at Hasanuddin University.",
+      "explore": "Explore",
+      "contactUs": "Contact Us",
+      "privacy": "Privacy Policy",
+      "rights": "All rights reserved."
+    },
+    "actions": {
+      "readMore": "Read more",
+      "viewAll": "View all",
+      "back": "Back",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "search": "Search",
+      "share": "Share",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied!"
+    },
+    "theme": { "toggle": "Toggle theme", "light": "Light", "dark": "Dark", "system": "System" },
+    "locale": { "label": "Language", "id": "Indonesia", "en": "English" },
+    "byAuthor": "by {name}",
+    "defaultAuthor": "KMP-UNHAS Board",
+    "emptyState": "No data to display yet.",
+    "dbUnconfigured": "Database is not configured. Set the Supabase environment variables first."
+  },
+  "home": {
+    "metaDescription": "Official website of KMP-UNHAS (Pinrang Students Association of Hasanuddin University). Activities, news, and member registration.",
+    "heroCtaPrimary": "Join Us",
+    "heroCtaSecondary": "About Us",
+    "stats": { "title": "KMP-UNHAS in Numbers", "founded": "Founded", "members": "Active Members", "departments": "Departments", "programs": "Work Programs" },
+    "chairman": { "title": "Chairperson's Remarks", "period": "Period {period}" },
+    "latestNews": { "title": "Latest News", "subtitle": "Recent updates and stories from KMP-UNHAS" },
+    "upcomingEvents": { "title": "Upcoming Events", "subtitle": "What's happening next" },
+    "galleryPreview": { "title": "Activity Gallery", "subtitle": "Captured moments of our togetherness" },
+    "registerCta": {
+      "title": "New Student from Pinrang?",
+      "description": "Join the KMP-UNHAS family. Meet your people, grow yourself, and give back to your hometown.",
+      "button": "Register Now"
+    }
+  },
+  "about": {
+    "historyTitle": "History",
+    "historySubtitle": "The journey of the Pinrang Students Association of Hasanuddin University",
+    "visionMissionTitle": "Vision & Mission",
+    "visionMissionSubtitle": "The organization's direction, goals, and efforts",
+    "vision": "Vision",
+    "mission": "Mission",
+    "purpose": "Goals",
+    "efforts": "Efforts",
+    "goalsTitle": "Goals & Efforts",
+    "logoTitle": "Official Logo",
+    "logoSubtitle": "The meaning and philosophy of the organization's logo",
+    "logoPhilosophy": "Logo Philosophy",
+    "downloadLogo": "Download Logo",
+    "logoCreator": "Logo Designer",
+    "marsTitle": "KMP UNHAS Anthem",
+    "marsSubtitle": "The proud anthem of the Pinrang Students Association"
+  },
+  "structure": {
+    "leadershipTitle": "Organization Leadership",
+    "leadershipSubtitle": "KMP-UNHAS core board for the {period} period",
+    "advisoryTitle": "Advisory Board",
+    "advisorySubtitle": "The advisory board of the Pinrang Students Association",
+    "councilTitle": "Consideration Council",
+    "councilSubtitle": "The consideration council of KMP-UNHAS",
+    "structureTitle": "Management Structure",
+    "structureSubtitle": "KMP-UNHAS management chart for the {period} period",
+    "departmentsTitle": "Departments",
+    "departmentsSubtitle": "The departments that keep the organization moving",
+    "departments": "Departments",
+    "batch": "Class of {batch}",
+    "members": "Department Board",
+    "programs": "Work Programs",
+    "viewDetail": "View details"
+  },
+  "news": {
+    "title": "News",
+    "subtitle": "Official updates, activities, and announcements from KMP-UNHAS",
+    "searchPlaceholder": "Search news...",
+    "allCategories": "All",
+    "notFound": "No news matched your search.",
+    "relatedNews": "Related News",
+    "shareTitle": "Share this article",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "pageOf": "Page {page} of {total}"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Documentation of KMP-UNHAS activities and moments",
+    "photoCount": "{count} photos",
+    "viewAlbum": "Open album"
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "KMP-UNHAS activity schedule and work programs",
+    "upcoming": "Upcoming",
+    "done": "Past",
+    "all": "All",
+    "proker": "Work Program",
+    "nonProker": "Non-Program",
+    "organizer": "Organized by: {name}",
+    "noEvents": "No events in this category yet."
+  },
+  "registration": {
+    "title": "Member Registration",
+    "subtitle": "New member registration form for students from Pinrang Regency at Hasanuddin University",
+    "closed": "New member registration is currently closed. Follow our social media for the next opening.",
+    "fields": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Name as on student ID",
+      "nim": "Student ID (NIM)",
+      "nimPlaceholder": "e.g. A012345678",
+      "faculty": "Faculty",
+      "facultyPlaceholder": "e.g. Faculty of Engineering",
+      "major": "Study Program",
+      "majorPlaceholder": "e.g. Informatics Engineering",
+      "batch": "Class Year",
+      "batchPlaceholder": "e.g. 2026",
+      "origin": "Home District/School in Pinrang",
+      "originPlaceholder": "e.g. Watang Sawitto District / SMAN 1 Pinrang",
+      "email": "Email",
+      "emailPlaceholder": "name@gmail.com",
+      "whatsapp": "WhatsApp Number",
+      "whatsappPlaceholder": "e.g. 08xxxxxxxxxx",
+      "reason": "Reason for Joining",
+      "reasonPlaceholder": "Briefly share your motivation to join KMP-UNHAS",
+      "consent": "I agree to the processing of my personal data per the <link>Privacy Policy</link>"
+    },
+    "success": {
+      "title": "Registration Submitted!",
+      "description": "Thank you for registering. The board will contact you via WhatsApp for the next steps.",
+      "backHome": "Back to Home"
+    },
+    "error": "Registration failed to submit. Please try again.",
+    "validation": {
+      "required": "Required",
+      "email": "Invalid email format",
+      "phone": "Invalid phone number (e.g. 08xxxxxxxxxx)",
+      "nim": "Invalid student ID format",
+      "consent": "You must agree to the privacy policy",
+      "min": "Too short",
+      "max": "Too long"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with the KMP-UNHAS board",
+    "address": "Secretariat Address",
+    "email": "Email",
+    "phone": "Phone / WhatsApp",
+    "socials": "Social Media",
+    "formTitle": "Send a Message",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "messagePlaceholder": "Write your message here..."
+    },
+    "success": "Message sent! The board will respond soon.",
+    "error": "Message failed to send. Please try again.",
+    "mapTitle": "Secretariat Location"
+  },
+  "privacy": { "title": "Privacy Policy" },
+  "login": {
+    "title": "Board Login",
+    "description": "Dashboard login page for Super Admin, Admin, and Committee.",
+    "comingSoon": "The authentication & dashboard module is under construction (Phase 3). Stay tuned!",
+    "backHome": "Back to Home"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to Home"
+  }
+}
