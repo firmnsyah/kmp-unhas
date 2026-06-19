@@ -1,6 +1,7 @@
 "use server";
 
 import { logActivity } from "@/shared/lib/activity";
+import { revalidatePublic } from "@/shared/lib/revalidate";
 import { slugify } from "@/shared/lib/slug";
 import { getServerSupabase } from "@/shared/lib/supabase-server";
 import type { Localized } from "@/shared/lib/types";
@@ -46,7 +47,7 @@ export async function saveCategory(formData: FormData): Promise<AdminResult> {
   if (res.error) return { ok: false, error: res.error.message };
 
   revalidatePath("/dashboard/kategori");
-  revalidatePath("/berita");
+  revalidatePublic("/berita", "/berita/[slug]");
   return { ok: true };
 }
 
@@ -137,7 +138,7 @@ export async function saveNews(formData: FormData): Promise<AdminResult> {
 
   revalidatePath("/dashboard/berita");
   revalidatePath("/dashboard/approval");
-  revalidatePath("/berita");
+  revalidatePublic("/", "/berita", "/berita/[slug]");
   return { ok: true };
 }
 
@@ -210,7 +211,7 @@ export async function deleteNews(id: string): Promise<AdminResult> {
   if (error) return { ok: false, error: error.message };
   await logActivity("news.delete", "news", id);
   revalidatePath("/dashboard/berita");
-  revalidatePath("/berita");
+  revalidatePublic("/", "/berita", "/berita/[slug]");
   return { ok: true };
 }
 
@@ -225,7 +226,7 @@ export async function approveNews(id: string): Promise<AdminResult> {
   if (error) return { ok: false, error: error.message };
   await logActivity("news.approve", "news", id);
   revalidatePath("/dashboard/approval");
-  revalidatePath("/berita");
+  revalidatePublic("/", "/berita", "/berita/[slug]");
   return { ok: true };
 }
 

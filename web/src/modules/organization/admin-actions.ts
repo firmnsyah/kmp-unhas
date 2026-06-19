@@ -2,6 +2,7 @@
 
 import { logActivity } from "@/shared/lib/activity";
 import { getAdminContext, isSuperAdmin } from "@/shared/lib/admin-guard";
+import { revalidatePublic } from "@/shared/lib/revalidate";
 import { slugify } from "@/shared/lib/slug";
 import { revalidatePath } from "next/cache";
 
@@ -9,11 +10,15 @@ export type OrgResult = { ok: boolean; error?: string };
 
 function revalidateOrg() {
   revalidatePath("/dashboard/struktur");
-  revalidatePath("/tentang/struktur-kepengurusan");
-  revalidatePath("/tentang/pimpinan");
-  revalidatePath("/tentang/dewan-pembina");
-  revalidatePath("/tentang/dewan-pertimbangan");
-  revalidatePath("/tentang/departemen");
+  revalidatePublic(
+    "/",
+    "/tentang/struktur-kepengurusan",
+    "/tentang/pimpinan",
+    "/tentang/dewan-pembina",
+    "/tentang/dewan-pertimbangan",
+    "/tentang/departemen",
+    "/tentang/departemen/[slug]",
+  );
 }
 
 async function guard() {
@@ -108,7 +113,7 @@ export async function saveDeptMember(formData: FormData): Promise<OrgResult> {
     : await supabase.from("department_members").insert(payload);
   if (res.error) return { ok: false, error: res.error.message };
   revalidatePath(`/dashboard/struktur/departemen/${departmentId}`);
-  revalidatePath(`/tentang/struktur-organisasi/${departmentId}`);
+  revalidatePublic("/tentang/struktur-kepengurusan", "/tentang/departemen/[slug]");
   return { ok: true };
 }
 
@@ -118,6 +123,7 @@ export async function deleteDeptMember(id: string, departmentId: string): Promis
   const { error: e } = await supabase.from("department_members").delete().eq("id", id);
   if (e) return { ok: false, error: e.message };
   revalidatePath(`/dashboard/struktur/departemen/${departmentId}`);
+  revalidatePublic("/tentang/struktur-kepengurusan", "/tentang/departemen/[slug]");
   return { ok: true };
 }
 
@@ -136,6 +142,7 @@ export async function saveDeptProgram(formData: FormData): Promise<OrgResult> {
     : await supabase.from("department_programs").insert(payload);
   if (res.error) return { ok: false, error: res.error.message };
   revalidatePath(`/dashboard/struktur/departemen/${departmentId}`);
+  revalidatePublic("/tentang/departemen/[slug]");
   return { ok: true };
 }
 
@@ -145,5 +152,6 @@ export async function deleteDeptProgram(id: string, departmentId: string): Promi
   const { error: e } = await supabase.from("department_programs").delete().eq("id", id);
   if (e) return { ok: false, error: e.message };
   revalidatePath(`/dashboard/struktur/departemen/${departmentId}`);
+  revalidatePublic("/tentang/departemen/[slug]");
   return { ok: true };
 }

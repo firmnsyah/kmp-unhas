@@ -2,14 +2,14 @@
 
 import { logActivity } from "@/shared/lib/activity";
 import { getAdminContext, isAdminRole } from "@/shared/lib/admin-guard";
+import { revalidatePublic } from "@/shared/lib/revalidate";
 import { revalidatePath } from "next/cache";
 
 export type EventResult = { ok: boolean; error?: string };
 
 function revalidateEvents() {
   revalidatePath("/dashboard/agenda");
-  revalidatePath("/agenda");
-  revalidatePath("/");
+  revalidatePublic("/", "/agenda");
 }
 
 export async function saveEvent(formData: FormData): Promise<EventResult> {

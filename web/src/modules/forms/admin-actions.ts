@@ -2,6 +2,7 @@
 
 import { logActivity } from "@/shared/lib/activity";
 import { getAdminContext, isAdminRole } from "@/shared/lib/admin-guard";
+import { revalidatePublic } from "@/shared/lib/revalidate";
 import { slugify } from "@/shared/lib/slug";
 import { revalidatePath } from "next/cache";
 
@@ -9,8 +10,8 @@ export type FormResult = { ok: boolean; error?: string; id?: string };
 
 function revalidateForms(slug?: string) {
   revalidatePath("/dashboard/form");
-  revalidatePath("/");
-  if (slug) revalidatePath(`/form/${slug}`);
+  revalidatePublic("/");
+  if (slug) revalidatePublic("/form/[slug]");
 }
 
 export async function saveForm(formData: FormData): Promise<FormResult> {

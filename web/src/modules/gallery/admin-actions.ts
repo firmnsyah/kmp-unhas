@@ -2,6 +2,7 @@
 
 import { logActivity } from "@/shared/lib/activity";
 import { getAdminContext, isAdminRole } from "@/shared/lib/admin-guard";
+import { revalidatePublic } from "@/shared/lib/revalidate";
 import { slugify } from "@/shared/lib/slug";
 import { revalidatePath } from "next/cache";
 
@@ -9,8 +10,7 @@ export type GalleryResult = { ok: boolean; error?: string };
 
 function revalidateGallery() {
   revalidatePath("/dashboard/galeri");
-  revalidatePath("/galeri");
-  revalidatePath("/");
+  revalidatePublic("/", "/galeri", "/galeri/[slug]");
 }
 
 export async function saveAlbum(formData: FormData): Promise<GalleryResult> {
@@ -71,7 +71,7 @@ export async function addPhoto(formData: FormData): Promise<GalleryResult> {
   });
   if (error) return { ok: false, error: error.message };
   revalidatePath(`/dashboard/galeri/${albumId}`);
-  revalidatePath("/galeri");
+  revalidatePublic("/", "/galeri", "/galeri/[slug]");
   return { ok: true };
 }
 
@@ -82,6 +82,6 @@ export async function deletePhoto(id: string, albumId: string): Promise<GalleryR
   const { error } = await supabase.from("gallery_photos").delete().eq("id", id);
   if (error) return { ok: false, error: error.message };
   revalidatePath(`/dashboard/galeri/${albumId}`);
-  revalidatePath("/galeri");
+  revalidatePublic("/", "/galeri", "/galeri/[slug]");
   return { ok: true };
 }
