@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { richTextToHtml } from "@/shared/lib/html";
 import { InstagramIcon } from "@/shared/ui/brand-icons";
 import { Logo } from "@/shared/ui/logo";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -57,7 +58,10 @@ export async function Footer({ contact }: { contact: ContactContent }) {
           <ul className="text-muted-foreground space-y-2.5 text-sm">
             <li className="flex gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0" />
-              {contact.address}
+              <div
+                className="[&_p]:m-0"
+                dangerouslySetInnerHTML={{ __html: richTextToHtml(contact.address) }}
+              />
             </li>
             <li className="flex items-center gap-2">
               <Mail className="size-4 shrink-0" />

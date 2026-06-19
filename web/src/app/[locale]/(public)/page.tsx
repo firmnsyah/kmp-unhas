@@ -11,6 +11,7 @@ import { getUpcomingEvents, EventCard } from "@/modules/events";
 import { getActiveHomeForms } from "@/modules/forms";
 import { getRecentPhotos } from "@/modules/gallery";
 import { getLatestNews, NewsCard } from "@/modules/news";
+import { richTextToHtml } from "@/shared/lib/html";
 import { formatDate, pickLocale } from "@/shared/lib/locale";
 import { CountUp, HoverLift, Reveal } from "@/shared/ui/motion";
 import { EmptyState, Section, SectionHeading } from "@/shared/ui/section";
@@ -90,9 +91,10 @@ export default async function HomePage({
               </Avatar>
               <div className="space-y-3">
                 <Quote className="text-primary mx-auto size-6 md:mx-0" aria-hidden />
-                <blockquote className="text-pretty italic">
-                  &ldquo;{pickLocale(chairman.quote, locale)}&rdquo;
-                </blockquote>
+                <blockquote
+                  className="prose prose-sm prose-neutral dark:prose-invert max-w-none text-pretty italic"
+                  dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(chairman.quote, locale)) }}
+                />
                 <div>
                   <p className="font-semibold">{chairman.name}</p>
                   <p className="text-muted-foreground text-sm">

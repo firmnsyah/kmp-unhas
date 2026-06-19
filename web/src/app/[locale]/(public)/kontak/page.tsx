@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { getContactContent } from "@/modules/cms";
 import { ContactForm } from "@/modules/contact";
+import { richTextToHtml } from "@/shared/lib/html";
 import { InstagramIcon } from "@/shared/ui/brand-icons";
 import { Reveal } from "@/shared/ui/motion";
 import { PageHeader, Section } from "@/shared/ui/section";
@@ -30,7 +31,7 @@ export default async function ContactPage({
   const contact = await getContactContent();
 
   const infoItems = [
-    { icon: MapPin, label: t("address"), value: contact.address },
+    { icon: MapPin, label: t("address"), value: contact.address, html: true },
     { icon: Mail, label: t("email"), value: contact.email, href: `mailto:${contact.email}` },
     { icon: Phone, label: t("phone"), value: contact.phone },
   ];
@@ -57,6 +58,11 @@ export default async function ContactPage({
                       >
                         {item.value}
                       </a>
+                    ) : item.html ? (
+                      <div
+                        className="text-muted-foreground text-sm [&_p]:m-0"
+                        dangerouslySetInnerHTML={{ __html: richTextToHtml(item.value) }}
+                      />
                     ) : (
                       <p className="text-muted-foreground text-sm">{item.value}</p>
                     )}

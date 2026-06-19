@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { richTextToHtml } from "@/shared/lib/html";
 import type { ContentSections } from "@/shared/lib/types";
 import { ImageUpload } from "@/shared/ui/image-upload";
 import { RichTextEditor } from "@/shared/ui/rich-text-editor";
@@ -165,7 +166,10 @@ export function CmsEditor({ content }: { content: ContentSections }) {
         >
           <Field label="Nama Ketua" name="name" defaultValue={chairman.name} />
           <Field label="Periode" name="period" defaultValue={chairman.period} />
-          <AreaField label="Sambutan/Kutipan" name="quote" defaultValue={chairman.quote.id} rows={4} />
+          <div className="space-y-2">
+            <Label>Sambutan/Kutipan</Label>
+            <RichTextEditor name="quote" defaultValue={richTextToHtml(chairman.quote.id)} />
+          </div>
           <div className="space-y-2">
             <Label>Foto Ketua</Label>
             <ImageUpload name="photo_url" defaultValue={chairman.photo_url} bucket="people" />
@@ -196,15 +200,24 @@ export function CmsEditor({ content }: { content: ContentSections }) {
             <Label>Sejarah</Label>
             <RichTextEditor name="history" defaultValue={about.history.id} />
           </div>
-          <AreaField label="Visi" name="vision" defaultValue={about.vision.id} rows={2} />
+          <div className="space-y-2">
+            <Label>Visi</Label>
+            <RichTextEditor name="vision" defaultValue={richTextToHtml(about.vision.id)} />
+          </div>
           <AreaField label="Misi (satu poin per baris)" name="missions" defaultValue={listToText(about.missions.id)} rows={4} />
           <AreaField label="Tujuan (satu poin per baris)" name="purpose" defaultValue={listToText(about.purpose.id)} rows={4} />
           <AreaField label="Usaha (satu poin per baris)" name="efforts" defaultValue={listToText(about.efforts.id)} rows={4} />
-          <AreaField label="Filosofi Logo" name="logo_philosophy" defaultValue={about.logo_philosophy.id} rows={2} />
+          <div className="space-y-2">
+            <Label>Filosofi Logo</Label>
+            <RichTextEditor name="logo_philosophy" defaultValue={richTextToHtml(about.logo_philosophy.id)} />
+          </div>
           <Field label="URL Unduh Logo" name="logo_download_url" defaultValue={about.logo_download_url} />
           <p className="pt-2 text-sm font-semibold">Pembuat Logo</p>
           <Field label="Nama Pembuat" name="creator_name" defaultValue={about.logo_creator.name} />
-          <AreaField label="Keterangan Pembuat" name="creator_desc" defaultValue={about.logo_creator.description.id} rows={2} />
+          <div className="space-y-2">
+            <Label>Keterangan Pembuat</Label>
+            <RichTextEditor name="creator_desc" defaultValue={richTextToHtml(about.logo_creator.description.id)} />
+          </div>
           <div className="space-y-2">
             <Label>Foto Pembuat</Label>
             <ImageUpload name="creator_photo" defaultValue={about.logo_creator.photo_url} bucket="people" />
@@ -226,7 +239,10 @@ export function CmsEditor({ content }: { content: ContentSections }) {
             maps_embed: String(fd.get("maps_embed") ?? ""),
           })}
         >
-          <AreaField label="Alamat" name="address" defaultValue={contact.address} rows={2} />
+          <div className="space-y-2">
+            <Label>Alamat</Label>
+            <RichTextEditor name="address" defaultValue={richTextToHtml(contact.address)} />
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <Field label="Email" name="email" defaultValue={contact.email} />
             <Field label="Telepon/WA" name="phone" defaultValue={contact.phone} />
@@ -249,7 +265,10 @@ export function CmsEditor({ content }: { content: ContentSections }) {
             video_url: String(fd.get("video_url") ?? ""),
           })}
         >
-          <AreaField label="Lirik Mars" name="lyrics" defaultValue={mars.lyrics.id} rows={10} />
+          <div className="space-y-2">
+            <Label>Lirik Mars</Label>
+            <RichTextEditor name="lyrics" defaultValue={richTextToHtml(mars.lyrics.id)} />
+          </div>
           <Field label="URL Video YouTube" name="video_url" defaultValue={mars.video_url} />
         </SectionForm>
       </TabsContent>

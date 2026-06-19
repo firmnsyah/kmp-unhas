@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getAboutContent } from "@/modules/cms";
+import { richTextToHtml } from "@/shared/lib/html";
 import { pickLocale } from "@/shared/lib/locale";
 import { Reveal } from "@/shared/ui/motion";
 import { PageHeader, Section } from "@/shared/ui/section";
@@ -50,9 +51,10 @@ export default async function LogoPage({
                   {t("logoCreator")}
                 </p>
                 <h2 className="text-lg font-bold">{about.logo_creator.name}</h2>
-                <p className="text-muted-foreground text-pretty text-sm">
-                  {pickLocale(about.logo_creator.description, locale)}
-                </p>
+                <div
+                  className="prose prose-sm prose-neutral dark:prose-invert text-muted-foreground max-w-none text-pretty"
+                  dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(about.logo_creator.description, locale)) }}
+                />
               </div>
             </CardContent>
           </Card>
@@ -71,9 +73,10 @@ export default async function LogoPage({
               />
               <div className="space-y-4 text-center md:text-left">
                 <h2 className="text-xl font-bold md:text-2xl">{t("logoPhilosophy")}</h2>
-                <p className="text-muted-foreground text-pretty">
-                  {pickLocale(about.logo_philosophy, locale)}
-                </p>
+                <div
+                  className="prose prose-sm prose-neutral dark:prose-invert text-muted-foreground max-w-none text-pretty"
+                  dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(about.logo_philosophy, locale)) }}
+                />
                 <Button asChild>
                   <a href={about.logo_download_url} download>
                     <Download className="size-4" />

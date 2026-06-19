@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { getDepartmentBySlug, getDepartments, PersonCard } from "@/modules/organization";
+import { richTextToHtml } from "@/shared/lib/html";
 import { pickLocale } from "@/shared/lib/locale";
 import { Reveal } from "@/shared/ui/motion";
 import { PageHeader, Section } from "@/shared/ui/section";
@@ -77,9 +78,10 @@ export default async function DepartmentDetailPage({ params }: { params: Params 
                     </span>
                     <div>
                       <h3 className="font-semibold">{pickLocale(program.name, locale)}</h3>
-                      <p className="text-muted-foreground mt-1 text-sm">
-                        {pickLocale(program.description, locale)}
-                      </p>
+                      <div
+                        className="prose prose-sm prose-neutral dark:prose-invert text-muted-foreground mt-1 max-w-none"
+                        dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(program.description, locale)) }}
+                      />
                     </div>
                   </CardContent>
                 </Card>

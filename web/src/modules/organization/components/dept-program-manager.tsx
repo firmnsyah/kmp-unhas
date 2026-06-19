@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
 import { DataTable, EmptyRow } from "@/modules/dashboard";
+import { richTextToHtml } from "@/shared/lib/html";
 import type { DepartmentProgram } from "@/shared/lib/types";
 import { useConfirm } from "@/shared/ui/confirm-provider";
+import { RichTextEditor } from "@/shared/ui/rich-text-editor";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -111,8 +112,8 @@ export function DeptProgramManager({
             <Input id="p-name" name="name_id" defaultValue={editing?.name.id} required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="p-desc">Deskripsi</Label>
-            <Textarea id="p-desc" name="description_id" defaultValue={editing?.description?.id} rows={3} />
+            <Label>Deskripsi</Label>
+            <RichTextEditor name="description_id" defaultValue={richTextToHtml(editing?.description?.id)} />
           </div>
           <DialogFooter>
             <Button type="submit" disabled={pending}>

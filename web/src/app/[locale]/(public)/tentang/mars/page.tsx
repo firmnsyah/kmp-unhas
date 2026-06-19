@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { getMarsContent } from "@/modules/cms";
+import { richTextToHtml } from "@/shared/lib/html";
 import { pickLocale } from "@/shared/lib/locale";
 import { toYouTubeEmbed } from "@/shared/lib/youtube";
 import { Reveal } from "@/shared/ui/motion";
@@ -53,9 +54,10 @@ export default async function MarsPage({
           <Card>
             <CardContent className="space-y-5 py-8 text-center">
               <Music className="text-primary mx-auto size-8" aria-hidden />
-              <p className="text-pretty whitespace-pre-line leading-relaxed">
-                {pickLocale(mars.lyrics, locale)}
-              </p>
+              <div
+                className="prose prose-sm prose-neutral dark:prose-invert mx-auto max-w-none text-pretty leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(mars.lyrics, locale)) }}
+              />
             </CardContent>
           </Card>
         </Reveal>

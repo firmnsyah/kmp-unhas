@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { getAboutContent } from "@/modules/cms";
+import { richTextToHtml } from "@/shared/lib/html";
 import { pickLocale, pickLocaleList } from "@/shared/lib/locale";
 import { Reveal } from "@/shared/ui/motion";
 import { PageHeader, Section } from "@/shared/ui/section";
@@ -102,9 +103,10 @@ export default async function VisiMisiPage({
                   <Eye className="size-6" />
                 </span>
                 <h3 className="text-lg font-bold">{t("vision")}</h3>
-                <p className="text-muted-foreground text-pretty">
-                  {pickLocale(about.vision, locale)}
-                </p>
+                <div
+                  className="prose prose-sm prose-neutral dark:prose-invert text-muted-foreground max-w-none text-pretty"
+                  dangerouslySetInnerHTML={{ __html: richTextToHtml(pickLocale(about.vision, locale)) }}
+                />
               </CardContent>
             </Card>
           </Reveal>

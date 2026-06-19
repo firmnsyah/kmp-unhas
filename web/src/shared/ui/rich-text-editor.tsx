@@ -5,9 +5,15 @@ import { cn } from "@/lib/utils";
 import { getBrowserSupabase } from "@/shared/lib/supabase-browser";
 import { useConfirm } from "./confirm-provider";
 import {
+  AlignCenter,
+  AlignJustify,
+  AlignLeft,
+  AlignRight,
+  Baseline,
   Bold,
   Heading2,
   Heading3,
+  Highlighter,
   ImageUp,
   Italic,
   Link2,
@@ -23,17 +29,61 @@ import { toast } from "sonner";
 
 type Tool = { icon: LucideIcon; label: string; command: string; value?: string; prompt?: string };
 
-const TOOLS: Tool[] = [
-  { icon: Pilcrow, label: "Paragraf", command: "formatBlock", value: "p" },
-  { icon: Heading2, label: "Judul", command: "formatBlock", value: "h2" },
-  { icon: Heading3, label: "Subjudul", command: "formatBlock", value: "h3" },
-  { icon: Bold, label: "Tebal", command: "bold" },
-  { icon: Italic, label: "Miring", command: "italic" },
-  { icon: List, label: "Daftar", command: "insertUnorderedList" },
-  { icon: ListOrdered, label: "Daftar bernomor", command: "insertOrderedList" },
-  { icon: Quote, label: "Kutipan", command: "formatBlock", value: "blockquote" },
-  { icon: Link2, label: "Tautan", command: "createLink", prompt: "Masukkan URL tautan:" },
+// Toolbar dikelompokkan; setiap grup dipisah garis tipis di UI.
+const TOOL_GROUPS: Tool[][] = [
+  [
+    { icon: Pilcrow, label: "Paragraf", command: "formatBlock", value: "p" },
+    { icon: Heading2, label: "Judul", command: "formatBlock", value: "h2" },
+    { icon: Heading3, label: "Subjudul", command: "formatBlock", value: "h3" },
+  ],
+  [
+    { icon: Bold, label: "Tebal", command: "bold" },
+    { icon: Italic, label: "Miring", command: "italic" },
+  ],
+  [
+    { icon: List, label: "Daftar", command: "insertUnorderedList" },
+    { icon: ListOrdered, label: "Daftar bernomor", command: "insertOrderedList" },
+    { icon: Quote, label: "Kutipan", command: "formatBlock", value: "blockquote" },
+  ],
+  [
+    { icon: AlignLeft, label: "Rata kiri", command: "justifyLeft" },
+    { icon: AlignCenter, label: "Rata tengah", command: "justifyCenter" },
+    { icon: AlignRight, label: "Rata kanan", command: "justifyRight" },
+    { icon: AlignJustify, label: "Rata kiri-kanan", command: "justifyFull" },
+  ],
 ];
+
+type ColorCommand = "foreColor" | "hiliteColor";
+
+/** Tombol pemilih warna (warna teks / warna sorotan) berbasis input[type=color]. */
+function ColorTool({
+  icon: Icon,
+  label,
+  command,
+  onSaveSelection,
+  onApply,
+}: {
+  icon: LucideIcon;
+  label: string;
+  command: ColorCommand;
+  onSaveSelection: () => void;
+  onApply: (command: ColorCommand, color: string) => void;
+}) {
+  return (
+    <div className="hover:bg-accent relative flex size-8 items-center justify-center rounded-md">
+      <Icon className="pointer-events-none size-4" aria-hidden />
+      {/* Input warna asli menutupi tombol agar klik membuka pemilih warna native. */}
+      <input
+        type="color"
+        title={label}
+        aria-label={label}
+        className="absolute inset-0 size-full cursor-pointer opacity-0"
+        onMouseDown={onSaveSelection}
+        onChange={(e) => onApply(command, e.target.value)}
+      />
+    </div>
+  );
+}
 
 /**
  * Editor teks sederhana (WYSIWYG) berbasis contentEditable.
@@ -52,6 +102,7 @@ export function RichTextEditor({
   const { prompt } = useConfirm();
   const ref = useRef<HTMLDivElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const savedRange = useRef<Range | null>(null);
   const [html, setHtml] = useState(defaultValue);
   const [empty, setEmpty] = useState(!defaultValue);
   const [uploading, setUploading] = useState(false);
@@ -88,6 +139,30 @@ export function RichTextEditor({
     sync();
   }
 
+  // Simpan seleksi saat ini sebelum pemilih warna mengambil fokus dari editor.
+  function saveSelection() {
+    const sel = window.getSelection();
+    savedRange.current = sel && sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+  }
+
+  // Terapkan warna teks / sorotan ke seleksi yang tersimpan (output sebagai inline CSS).
+  function applyColor(command: ColorCommand, color: string) {
+    ref.current?.focus();
+    const sel = window.getSelection();
+    if (savedRange.current && sel) {
+      sel.removeAllRanges();
+      sel.addRange(savedRange.current);
+    }
+    try {
+      document.execCommand("styleWithCSS", false, "true");
+      document.execCommand(command, false, color);
+      document.execCommand("styleWithCSS", false, "false");
+    } catch {
+      document.execCommand(command, false, color);
+    }
+    sync();
+  }
+
   async function uploadImage(file: File) {
     if (!file.type.startsWith("image/")) return toast.error("File harus berupa gambar.");
     if (file.size > 5 * 1024 * 1024) return toast.error("Ukuran maksimal 5MB.");
@@ -115,24 +190,49 @@ export function RichTextEditor({
 
   return (
     <div className="border-input rounded-md border">
-      <div className="bg-muted/40 flex flex-wrap gap-0.5 border-b p-1">
-        {TOOLS.map((t) => (
-          <Button
-            key={t.label}
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="size-8"
-            title={t.label}
-            aria-label={t.label}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              runTool(t);
-            }}
-          >
-            <t.icon className="size-4" />
-          </Button>
+      <div className="bg-muted/40 flex flex-wrap items-center gap-0.5 border-b p-1">
+        {TOOL_GROUPS.map((group, gi) => (
+          <div key={gi} className="flex items-center gap-0.5">
+            {gi > 0 ? <span className="bg-border mx-1 h-5 w-px" aria-hidden /> : null}
+            {group.map((t) => (
+              <Button
+                key={t.label}
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="size-8"
+                title={t.label}
+                aria-label={t.label}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  runTool(t);
+                }}
+              >
+                <t.icon className="size-4" />
+              </Button>
+            ))}
+          </div>
         ))}
+
+        <span className="bg-border mx-1 h-5 w-px" aria-hidden />
+        <ColorTool icon={Baseline} label="Warna teks" command="foreColor" onSaveSelection={saveSelection} onApply={applyColor} />
+        <ColorTool icon={Highlighter} label="Warna sorotan" command="hiliteColor" onSaveSelection={saveSelection} onApply={applyColor} />
+
+        <span className="bg-border mx-1 h-5 w-px" aria-hidden />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="size-8"
+          title="Tautan"
+          aria-label="Tautan"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            runTool({ icon: Link2, label: "Tautan", command: "createLink", prompt: "Masukkan URL tautan:" });
+          }}
+        >
+          <Link2 className="size-4" />
+        </Button>
         <Button
           type="button"
           variant="ghost"
