@@ -20,6 +20,13 @@ export function getSupabase(): SupabaseClient | null {
   return client;
 }
 
+function isNetworkFailure(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return /fetch failed|network error|could not be resolved|econnrefused/i.test(
+    message,
+  );
+}
+
 /**
  * Jalankan query Supabase dengan fallback data demo:
  * - Supabase belum dikonfigurasi → fallback (pengalaman dev pertama kali).
@@ -27,12 +34,34 @@ export function getSupabase(): SupabaseClient | null {
  */
 export async function queryOrFallback<T>(
   fallback: T,
-  run: (db: SupabaseClient) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
+  run: (
+    db: SupabaseClient,
+  ) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
   transform: (data: never) => T,
 ): Promise<T> {
   const db = getSupabase();
   if (!db) return fallback;
-  const { data, error } = await run(db);
-  if (error) throw new Error(`Supabase query gagal: ${error.message}`);
-  return transform(data as never);
+  try {
+    const { data, error } = await run(db);
+    if (error) {
+      if (isNetworkFailure(error.message)) {
+        console.warn(
+          "Supabase tidak dapat dijangkau; memakai data fallback.",
+          error.message,
+        );
+        return fallback;
+      }
+      throw new Error(`Supabase query gagal: ${error.message}`);
+    }
+    return transform(data as never);
+  } catch (error) {
+    if (isNetworkFailure(error)) {
+      console.warn(
+        "Supabase tidak dapat dijangkau; memakai data fallback.",
+        error,
+      );
+      return fallback;
+    }
+    throw error;
+  }
 }

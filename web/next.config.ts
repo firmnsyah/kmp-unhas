@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["192.168.1.41"],
   images: {
     // Optimizer dimatikan: gambar (lokal & Supabase Storage publik) dimuat langsung
     // via <img>. Supabase image-transform butuh plan berbayar, jadi tak dipakai.
