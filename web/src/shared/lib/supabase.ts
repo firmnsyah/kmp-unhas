@@ -20,7 +20,7 @@ export function getSupabase(): SupabaseClient | null {
   return client;
 }
 
-function isNetworkFailure(error: unknown): boolean {
+export function isSupabaseNetworkFailure(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
   return /fetch failed|network error|could not be resolved|econnrefused/i.test(
     message,
@@ -44,7 +44,7 @@ export async function queryOrFallback<T>(
   try {
     const { data, error } = await run(db);
     if (error) {
-      if (isNetworkFailure(error.message)) {
+      if (isSupabaseNetworkFailure(error.message)) {
         console.warn(
           "Supabase tidak dapat dijangkau; memakai data fallback.",
           error.message,
@@ -55,7 +55,7 @@ export async function queryOrFallback<T>(
     }
     return transform(data as never);
   } catch (error) {
-    if (isNetworkFailure(error)) {
+    if (isSupabaseNetworkFailure(error)) {
       console.warn(
         "Supabase tidak dapat dijangkau; memakai data fallback.",
         error,

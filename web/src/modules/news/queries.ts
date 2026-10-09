@@ -1,6 +1,13 @@
-import { FALLBACK_CATEGORIES, FALLBACK_NEWS } from "@/shared/config/fallback-content";
+import {
+  FALLBACK_CATEGORIES,
+  FALLBACK_NEWS,
+} from "@/shared/config/fallback-content";
 import { pickLocale } from "@/shared/lib/locale";
-import { getSupabase, queryOrFallback } from "@/shared/lib/supabase";
+import {
+  getSupabase,
+  isSupabaseNetworkFailure,
+  queryOrFallback,
+} from "@/shared/lib/supabase";
 import type { News, NewsCategory } from "@/shared/lib/types";
 
 export const NEWS_PER_PAGE = 9;
@@ -35,7 +42,8 @@ const isMissingAuthorCol = (e: { message?: string } | null) =>
 
 function mapNews(row: NewsRow): News {
   // author_name kustom diutamakan; fallback ke nama profil akun penulis.
-  const custom = typeof row.author_name === "string" ? row.author_name.trim() : "";
+  const custom =
+    typeof row.author_name === "string" ? row.author_name.trim() : "";
   return {
     id: row.id,
     title: row.title,
@@ -64,7 +72,12 @@ export type NewsListParams = {
   page?: number;
 };
 
-export async function getNewsList({ locale, category, q, page = 1 }: NewsListParams): Promise<{
+export async function getNewsList({
+  locale,
+  category,
+  q,
+  page = 1,
+}: NewsListParams): Promise<{
   items: News[];
   total: number;
   totalPages: number;
@@ -115,7 +128,8 @@ export async function getNewsList({ locale, category, q, page = 1 }: NewsListPar
   if (q) {
     // Bersihkan karakter yang punya makna khusus di string filter PostgREST.
     const safe = q.replace(/[,()*%\\]/g, " ").trim();
-    if (safe) query = query.or(`title->>id.ilike.%${safe}%,title->>en.ilike.%${safe}%`);
+    if (safe)
+      query = query.or(`title->>id.ilike.%${safe}%,title->>en.ilike.%${safe}%`);
   }
 
   const { data, count, error } = await query;
@@ -151,11 +165,32 @@ export async function getNewsBySlug(slug: string): Promise<News | null> {
       .is("deleted_at", null)
       .maybeSingle();
 
-  let { data, error } = await build(NEWS_SELECT);
-  // Fallback bila kolom author_name belum ada (migrasi 0003 belum dijalankan).
-  if (error && isMissingAuthorCol(error)) ({ data, error } = await build(NEWS_SELECT_BASE));
-  if (error) throw new Error(`Supabase query gagal: ${error.message}`);
-  return data ? mapNews(data as unknown as NewsRow) : null;
+  try {
+    let { data, error } = await build(NEWS_SELECT);
+    // Fallback bila kolom author_name belum ada (migrasi 0003 belum dijalankan).
+    if (error && isMissingAuthorCol(error))
+      ({ data, error } = await build(NEWS_SELECT_BASE));
+    if (error) {
+      if (isSupabaseNetworkFailure(error.message)) {
+        console.warn(
+          "Supabase tidak dapat dijangkau; memakai berita fallback.",
+          error.message,
+        );
+        return FALLBACK_NEWS.find((n) => n.slug === slug) ?? null;
+      }
+      throw new Error(`Supabase query gagal: ${error.message}`);
+    }
+    return data ? mapNews(data as unknown as NewsRow) : null;
+  } catch (error) {
+    if (isSupabaseNetworkFailure(error)) {
+      console.warn(
+        "Supabase tidak dapat dijangkau; memakai berita fallback.",
+        error,
+      );
+      return FALLBACK_NEWS.find((n) => n.slug === slug) ?? null;
+    }
+    throw error;
+  }
 }
 
 export async function getRelatedNews(news: News, limit = 3): Promise<News[]> {
